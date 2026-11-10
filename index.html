@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DinoWorld: descubre dinosaurios, aprende datos increíbles y demuestra cuánto sabes.">
+<title>DinoWorld 🦖</title>
+<style>
+:root{--green:#2f9e62;--dark:#174b3b;--yellow:#ffd45a;--orange:#ff9252;--cream:#fff9e9;--ink:#24352d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--cream)}
+header{background:linear-gradient(120deg,#2f9e62,#8acb68);color:white;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-size:1.65rem;font-weight:900;letter-spacing:.4px}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-weight:700}
+nav a:hover{text-decoration:underline}
+.hero{padding:76px 6% 70px;background:linear-gradient(120deg,rgba(15,65,45,.78),rgba(28,100,58,.42)),url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1800&q=80') center/cover;color:white;text-align:center}
+.hero .tag{display:inline-block;background:var(--yellow);color:#493b14;padding:7px 14px;border-radius:30px;font-weight:800}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);margin:14px 0 8px;text-shadow:0 3px 12px #173d2b}
+.hero p{font-size:1.15rem;max-width:650px;margin:0 auto 25px}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 21px;background:var(--yellow);color:#473914;font-weight:900;text-decoration:none;cursor:pointer}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
+section{padding:54px 6%;max-width:1250px;margin:auto}
+.section-title{text-align:center;margin-bottom:25px}
+.section-title h2{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--dark);margin:0}
+.section-title p{margin:8px 0;color:#607267}
+.search-wrap{max-width:560px;margin:0 auto 18px}
+.filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 auto 28px}
+.filters button{border:0;border-radius:30px;padding:10px 16px;background:#e6f2df;color:#24563a;font-weight:800;cursor:pointer}
+.filters button.active,.filters button:hover{background:#2f9e62;color:white}
+input[type=search]{width:100%;padding:14px 18px;border:2px solid #c8dfc8;border-radius:16px;font-size:1rem;outline:none}
+input[type=search]:focus{border-color:var(--green);box-shadow:0 0 0 3px #2f9e6220}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 7px 22px #254a3012;transition:.2s}
+.card:hover{transform:translateY(-5px)}
+.dino-art{height:150px;display:grid;place-items:center;font-size:5.5rem;background:linear-gradient(135deg,#dff2c9,#fff0bf)}
+.card-body{padding:18px}
+.card h3{margin:0 0 7px;color:var(--dark)}
+.pill{display:inline-block;background:#e6f5df;color:#28613d;padding:4px 10px;border-radius:30px;font-size:.78rem;font-weight:800;margin-bottom:9px}
+.card p{line-height:1.5;margin:0 0 10px}
+.fact{font-size:.9rem;color:#68776e}
+.empty{text-align:center;grid-column:1/-1;padding:24px;color:#68776e}
+.quiz-box{max-width:700px;margin:auto;background:white;padding:26px;border-radius:22px;box-shadow:0 7px 22px #254a3012}
+.quiz-box h3{margin-top:0;color:var(--dark)}
+.answers{display:grid;gap:10px;margin:18px 0}
+.answer{padding:12px 15px;border:2px solid #d9e8d7;border-radius:13px;background:#fff;text-align:left;font:inherit;font-weight:700;cursor:pointer}
+.answer:hover{border-color:var(--green);background:#f3faed}
+.answer:disabled{cursor:default;opacity:1}
+.answer.correct{border-color:#2f9e62;background:#e7f7e9}
+.answer.wrong{border-color:#e17b61;background:#fff0eb}
+#feedback{font-weight:800;min-height:26px}
+footer{text-align:center;background:var(--dark);color:#e9f6e9;padding:28px 6%;margin-top:25px}
+@media(max-width:600px){header{justify-content:center;text-align:center}nav{justify-content:center}.hero{padding:60px 6%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🦖 DinoWorld</div>
+  <nav aria-label="Navegación principal">
+    <a href="#inicio">Inicio</a><a href="#enciclopedia">Enciclopedia</a><a href="#quiz">Cuestionario</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <span class="tag">¡Bienvenido al mundo prehistórico!</span>
+  <h1>Explora DinoWorld</h1>
+  <p>Conoce a los gigantes que dominaron la Tierra, descubre datos sorprendentes y pon a prueba tus conocimientos.</p>
+  <a class="btn" href="#enciclopedia">Explorar dinosaurios</a>
+</section>
+
+<section id="enciclopedia">
+  <div class="section-title">
+    <h2>📚 Enciclopedia de dinosaurios</h2>
+    <p>Busca tu dinosaurio favorito y descubre sus características.</p>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="🔎 Buscar: T. rex, Triceratops..." aria-label="Buscar dinosaurios">
+  </div>
+  <div class="filters" id="dietFilters" aria-label="Filtrar por alimentación">
+    <button class="active" data-diet="Todos">Todos</button>
+    <button data-diet="Carnívoro">🥩 Carnívoros</button>
+    <button data-diet="Herbívoro">🌿 Herbívoros</button>
+    <button data-diet="Piscívoro">🐟 Piscívoros</button>
+    <button data-diet="Omnívoro">🍃 Omnívoros</button>
+  </div>
+  <div class="grid" id="dinoGrid"></div>
+</section>
+
+<section id="quiz">
+  <div class="section-title">
+    <h2>🧠 ¡Reto Dino!</h2>
+    <p>Responde las preguntas y comprueba cuánto sabes.</p>
+  </div>
+  <div class="quiz-box">
+    <div id="quizProgress">Pregunta 1 de 5</div>
+    <h3 id="question">Preparando el reto...</h3>
+    <div class="answers" id="answers"></div>
+    <p id="feedback" aria-live="polite"></p>
+    <button class="btn" id="next" hidden>Siguiente pregunta</button>
+    <button class="btn" id="restart" hidden>Volver a jugar</button>
+  </div>
+</section>
+</main>
+
+<footer>🦕 DinoWorld · Un viaje divertido al pasado de la Tierra</footer>
+
+<script>
+const dinosaurs = [
+ {name:"Tyrannosaurus rex",emoji:"🦖",period:"Cretácico",diet:"Carnívoro",size:"Hasta unos 12 metros",desc:"Uno de los grandes depredadores terrestres. Tenía una cabeza enorme y brazos relativamente pequeños.",fact:"Su nombre significa “rey de los lagartos tiranos”."},
+ {name:"Triceratops",emoji:"🦏",period:"Cretácico",diet:"Herbívoro",size:"Hasta unos 9 metros",desc:"Se reconocía por sus tres cuernos y la gran gola ósea que protegía parte de su cuello.",fact:"Su nombre significa “cara de tres cuernos”."},
+ {name:"Stegosaurus",emoji:"🦕",period:"Jurásico",diet:"Herbívoro",size:"Hasta unos 9 metros",desc:"Tenía grandes placas en la espalda y púas en la cola.",fact:"Su cerebro era pequeño en comparación con su cuerpo."},
+ {name:"Brachiosaurus",emoji:"🦕",period:"Jurásico",diet:"Herbívoro",size:"Alrededor de 20 metros de largo",desc:"Un enorme saurópodo con cuello largo y patas delanteras más altas que las traseras.",fact:"Podía alcanzar vegetación situada a gran altura."},
+ {name:"Velociraptor",emoji:"🐲",period:"Cretácico",diet:"Carnívoro",size:"Aproximadamente 2 metros de largo",desc:"Era un dinosaurio pequeño, ligero y emplumado, muy distinto de algunas versiones del cine.",fact:"Tenía una gran garra curva en cada pie."},
+ {name:"Spinosaurus",emoji:"🐉",period:"Cretácico",diet:"Principalmente piscívoro",size:"Más de 14 metros, según estimaciones",desc:"Tenía un hocico alargado y una estructura alta en la espalda.",fact:"Estaba adaptado a buscar alimento en ambientes acuáticos."},
+ {name:"Suchomimus",emoji:"🐊",period:"Cretácico temprano",diet:"Principalmente piscívoro",size:"Alrededor de 11 metros",desc:"Un dinosaurio espinosáurido de hocico largo y estrecho, con mandíbulas parecidas a las de un cocodrilo.",fact:"Su nombre significa “imitador de cocodrilo”."},
+ {name:"Allosaurus",emoji:"🦖",period:"Jurásico tardío",diet:"Carnívoro",size:"Hasta unos 10 metros",desc:"Un gran depredador del Jurásico con dientes afilados y brazos fuertes.",fact:"Fue uno de los carnívoros más conocidos de su época."},
+ {name:"Ankylosaurus",emoji:"🛡️",period:"Cretácico tardío",diet:"Herbívoro",size:"Alrededor de 6 a 8 metros",desc:"Tenía el cuerpo cubierto de placas óseas y una cola terminada en una pesada maza.",fact:"Su armadura corporal le daba una apariencia muy particular."},
+ {name:"Parasaurolophus",emoji:"🦕",period:"Cretácico tardío",diet:"Herbívoro",size:"Alrededor de 9 a 10 metros",desc:"Era un dinosaurio con pico y una larga cresta tubular que se extendía hacia atrás.",fact:"La cresta pudo ayudarle a producir sonidos y comunicarse."},
+ {name:"Carnotaurus",emoji:"👹",period:"Cretácico tardío",diet:"Carnívoro",size:"Alrededor de 8 metros",desc:"Un terópodo reconocible por los dos cuernos sobre sus ojos y sus brazos muy pequeños.",fact:"Su nombre significa “toro carnívoro”."},
+ {name:"Dilophosaurus",emoji:"🦎",period:"Jurásico temprano",diet:"Carnívoro",size:"Alrededor de 7 metros",desc:"Tenía dos crestas óseas en la parte superior del cráneo.",fact:"No hay evidencia sólida de que escupiera veneno como en algunas películas."},
+ {name:"Iguanodon",emoji:"🦕",period:"Cretácico temprano",diet:"Herbívoro",size:"Hasta unos 10 metros",desc:"Un dinosaurio herbívoro robusto que podía caminar en dos o cuatro patas.",fact:"Tenía una gran punta en cada pulgar."},
+ {name:"Pachycephalosaurus",emoji:"🦖",period:"Cretácico tardío",diet:"Probablemente omnívoro",size:"Alrededor de 4 a 5 metros",desc:"Se distinguía por su cráneo con una cúpula ósea gruesa.",fact:"Su nombre significa “lagarto de cabeza gruesa”."},
+ {name:"Giganotosaurus",emoji:"🦖",period:"Cretácico",diet:"Carnívoro",size:"Alrededor de 12 a 13 metros",desc:"Un enorme terópodo que vivió en lo que hoy es Sudamérica.",fact:"Fue uno de los mayores dinosaurios carnívoros conocidos."},
+ {name:"Diplodocus",emoji:"🦕",period:"Jurásico tardío",diet:"Herbívoro",size:"Alrededor de 24 a 26 metros",desc:"Un saurópodo de cuello y cola muy largos.",fact:"Su cola podía medir más de la mitad de su longitud total."},
+ {name:"Apatosaurus",emoji:"🦕",period:"Jurásico tardío",diet:"Herbívoro",size:"Alrededor de 21 a 23 metros",desc:"Un saurópodo enorme, de cuello largo y cuerpo robusto.",fact:"Durante mucho tiempo se confundió con otro saurópodo llamado Brontosaurus."},
+ {name:"Mosasaurus",emoji:"🐊",period:"Cretácico tardío",diet:"Carnívoro",size:"Algunas especies superaban los 10 metros",desc:"Un gran reptil marino que vivió en la misma época que los dinosaurios, aunque no era un dinosaurio.",fact:"Era un depredador de los mares prehistóricos."},
+ {name:"Pteranodon",emoji:"🪽",period:"Cretácico",diet:"Piscívoro",size:"Envergadura de varios metros",desc:"Un reptil volador con una gran cresta; no era un dinosaurio.",fact:"Probablemente capturaba peces cerca de la superficie del agua."},
+ {name:"Compsognathus",emoji:"🦎",period:"Jurásico tardío",diet:"Carnívoro",size:"Aproximadamente 1 metro",desc:"Un pequeño dinosaurio bípedo y ligero.",fact:"Es uno de los dinosaurios pequeños mejor conocidos."},
+ {name:"Deinonychus",emoji:"🐲",period:"Cretácico temprano",diet:"Carnívoro",size:"Alrededor de 3 metros",desc:"Un terópodo ágil con una gran garra curva en cada pie.",fact:"Sus fósiles ayudaron a cambiar la idea de que todos los dinosaurios eran lentos."},
+ {name:"Baryonyx",emoji:"🐊",period:"Cretácico temprano",diet:"Principalmente piscívoro",size:"Alrededor de 9 a 10 metros",desc:"Un espinosáurido de hocico largo y una gran garra en la mano.",fact:"Se han encontrado restos de peces asociados a sus fósiles."},
+ {name:"Oviraptor",emoji:"🥚",period:"Cretácico tardío",diet:"Probablemente omnívoro",size:"Alrededor de 2 metros",desc:"Un dinosaurio con pico y plumas, de cuerpo ligero.",fact:"Su nombre significa “ladrón de huevos”, pero quizá no robaba huevos."},
+ {name:"Gallimimus",emoji:"🦤",period:"Cretácico tardío",diet:"Omnívoro",size:"Alrededor de 6 metros",desc:"Un dinosaurio corredor con patas largas y un pico sin dientes.",fact:"Su aspecto recuerda al de un ave corredora."},
+ {name:"Maiasaura",emoji:"🦕",period:"Cretácico tardío",diet:"Herbívoro",size:"Alrededor de 9 metros",desc:"Un dinosaurio con pico de pato que vivía en grupos.",fact:"Sus fósiles aportaron pistas sobre el cuidado de las crías."},
+ {name:"Argentinosaurus",emoji:"🦕",period:"Cretácico",diet:"Herbívoro",size:"Estimaciones de más de 30 metros",desc:"Uno de los animales terrestres más grandes conocidos, aunque su tamaño exacto es incierto.",fact:"Vivió en lo que hoy es Argentina."},
+ {name:"Styracosaurus",emoji:"🦏",period:"Cretácico tardío",diet:"Herbívoro",size:"Alrededor de 5 a 6 metros",desc:"Un pariente del Triceratops con un cuerno nasal y largas púas en la gola.",fact:"Su gola tenía varias púas óseas llamativas."},
+ {name:"Corythosaurus",emoji:"🦕",period:"Cretácico tardío",diet:"Herbívoro",size:"Alrededor de 8 a 9 metros",desc:"Un dinosaurio de pico de pato con una cresta alta en la cabeza.",fact:"Su cresta tenía una forma parecida a un casco."}
+];
+const grid=document.getElementById("dinoGrid");
+let selectedDiet="Todos";
+function renderDinos(){
+ const term=document.getElementById("search").value.toLowerCase().trim();
+ const filtered=dinosaurs.filter(d=>{
+  const matchesText=(d.name+" "+d.period+" "+d.diet).toLowerCase().includes(term);
+  const diet=d.diet.toLowerCase();
+  const matchesDiet=selectedDiet==="Todos" ||
+   (selectedDiet==="Piscívoro" ? diet.includes("piscívoro") :
+    selectedDiet==="Omnívoro" ? diet.includes("omnívoro") :
+    diet.includes(selectedDiet.toLowerCase()));
+  return matchesText && matchesDiet;
+ });
+ grid.innerHTML="";
+ if(!filtered.length){grid.innerHTML='<p class="empty">No encontramos dinosaurios con esos filtros. ¡Prueba otra búsqueda!</p>';return;}
+ filtered.forEach(d=>{
+  const card=document.createElement("article");card.className="card";
+  card.innerHTML=`<div class="dino-art" aria-hidden="true">${d.emoji}</div><div class="card-body"><span class="pill">${d.period}</span><h3>${d.name}</h3><p>${d.desc}</p><p class="fact"><b>Dieta:</b> ${d.diet}<br><b>Tamaño:</b> ${d.size}<br><b>Dato curioso:</b> ${d.fact}</p></div>`;
+  grid.appendChild(card);
+ });
+}
+document.getElementById("search").addEventListener("input",renderDinos);
+document.querySelectorAll("#dietFilters button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  selectedDiet=button.dataset.diet;
+  document.querySelectorAll("#dietFilters button").forEach(b=>b.classList.toggle("active",b===button));
+  renderDinos();
+ });
+});
+renderDinos();
+
+const questions=[
+ {q:"¿En qué período vivió el Tyrannosaurus rex?",a:["Triásico","Jurásico","Cretácico","Pérmico"],correct:2,why:"El T. rex vivió durante el Cretácico tardío."},
+ {q:"¿Qué dinosaurio tenía tres cuernos?",a:["Triceratops","Stegosaurus","Brachiosaurus","Velociraptor"],correct:0,why:"El Triceratops se distingue por sus tres cuernos."},
+ {q:"¿Qué comía principalmente el Stegosaurus?",a:["Peces","Plantas","Insectos","Otros dinosaurios"],correct:1,why:"El Stegosaurus era herbívoro."},
+ {q:"¿Cuál de estos dinosaurios tenía un cuello muy largo?",a:["Velociraptor","T. rex","Brachiosaurus","Triceratops"],correct:2,why:"El Brachiosaurus tenía un cuello largo para alcanzar vegetación."},
+ {q:"¿Qué sabemos del Velociraptor real?",a:["Era del tamaño de un autobús","Tenía plumas","Volaba como un ave","Vivió en el Triásico"],correct:1,why:"La evidencia fósil indica que el Velociraptor tenía plumas."}
+];
+let index=0,score=0,answered=false;
+const questionEl=document.getElementById("question"),answersEl=document.getElementById("answers"),feedback=document.getElementById("feedback"),next=document.getElementById("next"),restart=document.getElementById("restart"),progress=document.getElementById("quizProgress");
+function showQuestion(){
+ answered=false;feedback.textContent="";next.hidden=true;restart.hidden=true;
+ progress.textContent=`Pregunta ${index+1} de ${questions.length}`;
+ const item=questions[index];questionEl.textContent=item.q;answersEl.innerHTML="";
+ item.a.forEach((answer,i)=>{
+  const btn=document.createElement("button");btn.className="answer";btn.textContent=answer;
+  btn.addEventListener("click",()=>chooseAnswer(i,btn));answersEl.appendChild(btn);
+ });
+}
+function chooseAnswer(choice,button){
+ if(answered)return;answered=true;
+ const item=questions[index];const buttons=[...answersEl.children];
+ buttons.forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add("correct");});
+ if(choice===item.correct){score++;feedback.textContent="¡Correcto! 🎉 "+item.why;}
+ else{button.classList.add("wrong");feedback.textContent="¡Buen intento! 💡 "+item.why;}
+ if(index<questions.length-1)next.hidden=false;else{restart.hidden=false;feedback.textContent+=` Resultado: ${score} de ${questions.length}.`;}
+}
+next.addEventListener("click",()=>{index++;showQuestion();});
+restart.addEventListener("click",()=>{index=0;score=0;showQuestion();});
+showQuestion();
+</script>
+</body>
+</html>
